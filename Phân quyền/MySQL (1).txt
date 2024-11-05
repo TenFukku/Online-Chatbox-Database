@@ -1,0 +1,72 @@
+--TAO ROLE
+CREATE ROLE 'manager_role';
+CREATE ROLE 'roomlead_role';
+CREATE ROLE 'roommember_role';
+CREATE ROLE 'user_role;
+
+--tao manager user va giao quyen manager role
+CREATE USER 'manager_user'@'localhost' IDENTIFIED BY 'manager';
+GRANT 'manager_role' TO 'manager_user'@'localhost';
+SET DEFAULT ROLE 'manager_role' TO 'manager_user'@'localhost';
+
+--tao roomlead user va giao quyen roomlead role
+CREATE USER 'roomlead_user'@'localhost' IDENTIFIED BY 'roomlead';
+GRANT 'roomlead_role' TO 'roomlead_user'@'localhost';
+SET DEFAULT ROLE 'roomlead_role' TO 'roomlead_user'@'localhost';
+
+--tao roommember user va giao quyen roommember role
+CREATE USER 'roommember_user'@'localhost' IDENTIFIED BY 'roommember';
+GRANT 'roommember_role' TO 'roommember_user'@'localhost';
+SET DEFAULT ROLE 'roommember_role' TO 'roommember_user'@'localhost';
+
+--tao user user va giao quyen user role
+CREATE USER 'user_user'@'localhost' IDENTIFIED BY 'user';
+GRANT 'user_role' TO 'user_user'@'localhost';
+SET DEFAULT ROLE 'user_role' TO 'user_user'@'localhost';
+
+--Phan quyen cho manager role
+GRANT SELECT, INSERT, DELETE ON miniplantdb.NGUOIDUNG TO manager_role WITH GRANT OPTION;
+GRANT SELECT, INSERT, DELETE ON miniplantdb.PHONGCHAT TO manager_role WITH GRANT OPTION;
+GRANT SELECT, DELETE ON miniplantdb.ND_PC TO manager_role WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE ON miniplantdb.TINNHAN TO manager_role WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE, DELETE ON miniplantdb.THONGBAO TO manager_role WITH GRANT OPTION;
+
+GRANT EXECUTE ON PROCEDURE miniplantdb.In_PhongChat_Tu_NguoiDung TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.Dem_NguoiDung_Trong_PhongChat TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.DanhDau_TinNhan_DaXem_Tu_NguoiDung TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.TimKiem_TinNhan_bang_TuKhoa TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.Xoa_PhongChat TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.SoLuong_TinNhan_ChuaDoc_Tu_NguoiDung TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.Top3_PhongChat_NguoiDung_Nhap_NhieuNhat TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.Top3_PhongChat_NguoiDung_Nhap_GanNhat TO manager_role WITH GRANT OPTION;
+
+GRANT EXECUTE ON FUNCTION miniplantdb.SoLuong_TinNhan_Trong_PhongChat TO manager_role WITH GRANT OPTION;
+GRANT EXECUTE ON FUNCTION miniplantdb.KiemTra_TrangThai_NguoiDung TO manager_role WITH GRANT OPTION;
+
+--Phan quyen cho roomlead role
+GRANT SELECT, INSERT, UPDATE ON miniplantdb.NGUOIDUNG TO roomlead_role WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE, DELETE ON miniplantdb.PHONGCHAT TO roomlead_role WITH GRANT OPTION;
+GRANT SELECT, INSERT ON miniplantdb.ND_PC TO roomlead_role WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE, DELETE ON miniplantdb.TINNHAN TO roomlead_role WITH GRANT OPTION;
+GRANT SELECT, INSERT ON miniplantdb.THONGBAO TO roomlead_role WITH GRANT OPTION;
+
+GRANT EXECUTE ON PROCEDURE miniplantdb.Dem_NguoiDung_Trong_PhongChat TO roomlead_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.TimKiem_TinNhan_bang_TuKhoa TO roomlead_role WITH GRANT OPTION;
+GRANT EXECUTE ON PROCEDURE miniplantdb.Xoa_PhongChat TO roomlead_role WITH GRANT OPTION;
+
+GRANT EXECUTE ON FUNCTION miniplantdb.SoLuong_TinNhan_Trong_PhongChat TO roomlead_role WITH GRANT OPTION;
+
+--Phan quyen cho roommember_role
+
+GRANT SELECT, INSERT, UPDATE ON miniplantdb.NGUOIDUNG TO roommember_role WITH GRANT OPTION;
+GRANT SELECT, INSERT ON miniplantdb.PHONGCHAT TO roommember_role WITH GRANT OPTION;
+GRANT SELECT, INSERT ON miniplantdb.ND_PC TO roommember_role WITH GRANT OPTION;
+GRANT SELECT, INSERT, UPDATE, DELETE ON miniplantdb.TINNHAN TO roommember_role WITH GRANT OPTION;
+GRANT SELECT, INSERT ON miniplantdb.THONGBAO TO roommember_role WITH GRANT OPTION;
+
+GRANT EXECUTE ON PROCEDURE miniplantdb.TimKiem_TinNhan_bang_TuKhoa TO roommember_role WITH GRANT OPTION;
+
+--Phan quyen cho user_role
+GRANT SELECT, INSERT, UPDATE ON miniplantdb.NGUOIDUNG TO user_role WITH GRANT OPTION;
+GRANT SELECT, INSERT ON miniplantdb.PHONGCHAT TO user_role WITH GRANT OPTION;
+GRANT SELECT, INSERT ON miniplantdb.ND_PC TO user_role WITH GRANT OPTION;
